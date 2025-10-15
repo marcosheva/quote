@@ -132,7 +132,7 @@
       tbody.innerHTML = '';
 
       try {
-        const res = await fetch(`https://quote-nswl.onrender.com/api/events?sport=calcio&limit=10`);
+        const res = await fetch(`https://quote-nswl.onrender.com/api/events?sport=${sport}&limit=${limit}`);
         const data = await res.json();
 
         if (!data.results || !data.results.length) {
