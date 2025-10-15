@@ -10,7 +10,7 @@ app = Flask(__name__)
 CORS(app)  # consente chiamate cross-origin
 
 # --- Configurazione MongoDB Atlas ---
-MONGO_URI = "mongodb+srv://bet365odds:Aurora86@cluster0.svytet0.mongodb.net/?retryWrites=true&w=majority"
+MONGO_URI = "mongodb+srv://bet365odds:Aurora86@cluster0.svytet0.mongodb.net/bet365?retryWrites=true&w=majority&tls=true"
 DB_NAME = "bet365"
 
 try:
