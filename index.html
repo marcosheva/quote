@@ -6,7 +6,7 @@
   <title>📊 Quote Sportive Complete | MongoDB</title>
   <style>
     :root {
-      --primary: #0b63d0; 
+      --primary: #0b63d0;
       --primary-light: #eaf3ff;
       --text-dark: #1e1e1e;
       --text-light: #666;
@@ -15,35 +15,178 @@
       --radius: 10px;
       --shadow: 0 2px 8px rgba(0,0,0,0.08);
       --past-bg: #f0f0f0;
-      --soon-bg: #fff8c4;
+      --soon-bg: #d9ffd9;
     }
-    * { box-sizing: border-box; }
-    body { margin:0; font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text-dark); }
-    header { background: var(--primary); color:white; padding:16px 24px; display:flex; align-items:center; justify-content:space-between; box-shadow: var(--shadow); }
-    header h1 { margin:0; font-size:1.4rem; }
-    .controls { display:flex; gap:8px; align-items:center; }
-    select, input, button { padding:6px 10px; border-radius: var(--radius); border:1px solid #ccc; font-size:0.9rem; }
-    button { background: var(--primary); color:white; border:none; cursor:pointer; transition: background 0.2s; }
-    button:hover { background:#084fa5; }
-    #status { margin-bottom:10px; color: var(--text-light); font-size:0.9rem; }
-    table { width:100%; background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); overflow:hidden; }
-    th, td { text-align:left; padding:4px 6px; border-bottom:1px solid #eee; font-size:0.9rem; }
-    th { background: var(--primary); color:white; position:sticky; top:0; }
+
+    /* 🌙 Tema scuro automatico */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #121212;
+        --white: #1e1e1e;
+        --text-dark: #f0f0f0;
+        --text-light: #aaa;
+        --primary-light: #153a75;
+        --shadow: 0 2px 8px rgba(255,255,255,0.05);
+      }
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text-dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: var(--primary);
+      color: white;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: var(--shadow);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.4rem;
+      text-align: center;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    select, input, button {
+      padding: 8px 10px;
+      border-radius: var(--radius);
+      border: 1px solid #ccc;
+      font-size: 0.9rem;
+    }
+
+    button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    button:hover { background: #084fa5; }
+
+    #status {
+      margin: 15px auto;
+      color: var(--text-light);
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    table {
+      width: 100%;
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border-collapse: collapse;
+      overflow: hidden;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 6px 8px;
+      border-bottom: 1px solid #eee;
+      font-size: 0.9rem;
+    }
+
+    th {
+      background: var(--primary);
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+
     tr:hover { background: var(--primary-light); }
     tr.past { background: var(--past-bg); color: #999; }
-    tr.soon { background: rgb(69, 235, 69); }
-    details { background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); margin:4px 0; padding:10px; }
-    summary { cursor:pointer; font-weight:bold; color:var(--primary); }
-    .market { margin-left:10px; padding:4px 0; border-top:1px solid #eee; }
-    .market strong { color:var(--text-dark); }
-    .odds { display:flex; flex-wrap:wrap; gap:10px; margin-top:4px; }
-    .odd-item { background:#f5f7fa; padding:4px 8px; border-radius:8px; font-size:0.85rem; box-shadow: var(--shadow); }
-    @media (max-width:768px){
-      table, thead, tbody, th, td, tr { display:block; }
-      th { position:static; }
-      tr { background: var(--white); margin-bottom:10px; border-radius: var(--radius); box-shadow: var(--shadow); }
-      td { border:none; display:flex; justify-content:space-between; padding:8px 12px; }
-      td::before { content: attr(data-label); font-weight:600; color: var(--text-light); }
+    tr.soon { background: var(--soon-bg); }
+
+    details {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin: 4px 0;
+      padding: 10px;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: bold;
+      color: var(--primary);
+    }
+
+    .market {
+      margin-left: 10px;
+      padding: 4px 0;
+      border-top: 1px solid #eee;
+    }
+
+    .market strong { color: var(--text-dark); }
+
+    .odds {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .odd-item {
+      background: #f5f7fa;
+      padding: 4px 8px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      box-shadow: var(--shadow);
+    }
+
+    /* 📱 Layout mobile */
+    @media (max-width: 768px) {
+      table, thead, tbody, th, tr, td { display: block; }
+      thead { display: none; }
+      tr {
+        background: var(--white);
+        margin: 10px;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        padding: 10px;
+      }
+      td {
+        display: flex;
+        justify-content: space-between;
+        padding: 6px 0;
+        border: none;
+        font-size: 0.9rem;
+      }
+      td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: var(--text-light);
+      }
+
+      #refreshBtn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        border-radius: 50%;
+        width: 55px;
+        height: 55px;
+        font-size: 1.3rem;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      }
     }
   </style>
 </head>
@@ -68,7 +211,7 @@
       <label for="limitInput">Limite:</label>
       <input id="limitInput" type="number" value="200" min="10" max="2000" />
 
-      <button id="refreshBtn">Aggiorna</button>
+      <button id="refreshBtn">🔄 Aggiorna</button>
     </div>
   </header>
 
@@ -94,7 +237,6 @@
   </main>
 
   <script>
-    // Conversione con +2 ore per allineare al fuso orario locale
     function parseDate(s) {
       const d = new Date(s.replace(" ", "T"));
       d.setHours(d.getHours() + 2);
@@ -105,7 +247,6 @@
       return parseDate(orario).toLocaleString("it-IT");
     }
 
-    // Genera HTML per tutti i mercati extra (spread, over/under, ecc.)
     function generaMercati(quote) {
       if (!quote || Object.keys(quote).length === 0) return "<em>Nessun mercato aggiuntivo</em>";
       return Object.entries(quote).map(([categoria, odds]) => `
@@ -140,8 +281,7 @@
           return;
         }
 
-        const eventiOrdinati = data.results
-          .sort((a, b) => parseDate(a.start_time) - parseDate(b.start_time));
+        const eventiOrdinati = data.results.sort((a, b) => parseDate(a.start_time) - parseDate(b.start_time));
 
         status.textContent = `✅ Trovati ${eventiOrdinati.length} eventi`;
 
